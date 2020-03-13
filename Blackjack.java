@@ -26,7 +26,6 @@ public class Blackjack {
         do {
            output.enterBet();
            bet= input.getBet();
-           
            } while (isBetInvalid(bet));
         output.heading();
     
@@ -73,7 +72,6 @@ public class Blackjack {
             output.nextln();
             output.nextln();
         }
-    
     }
     
     output.str("                             Dealer's hidden Card was:");
@@ -131,7 +129,6 @@ public class Blackjack {
     if (playerHand.getCardSum()==dealerHand.getCardSum()) {
         output.str("It was a Push! You get back your bet!");
         output.nextln();
-        
     } 
     
     if ((playerHand.getCardSum()<21) & (playerHand.getCardSum()> dealerHand.getCardSum())) {
