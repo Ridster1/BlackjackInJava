@@ -1,4 +1,4 @@
-package blackjackinjava
+package blackjackinjava;
 import java.util.*;
     
 public class Blackjack {
