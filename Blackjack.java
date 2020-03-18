@@ -1,11 +1,12 @@
+
 package blackjackinjava;
-import java.util.*;
-    
 public class Blackjack {
   private static int pCardValue,dCardValue; 
   private static Object pCard,dCard;
+  private static String pRank, pSuit;
+  private static String dRank, dSuit;
   private static int balance = 100;
-  private static char isChoicehit, isChoicePlay;
+  private static char isChoiceHit, isChoicePlay;
   private static int bet;
   private static boolean isBetInvalid;
      
@@ -16,17 +17,18 @@ public class Blackjack {
     output.getName();
     String name = input.getName();
     output.hello(name);
-    
+    output.showBalance(balance);
     while ((balance>0)  && (isChoicePlay !='n')) {
         
         Hand playerHand = new Hand();
         Hand dealerHand = new Hand();
     
-        isChoicehit='y';
-        output.showBalance(balance);
+        isChoiceHit='y';
+        
         do {
            output.enterBet();
            bet= input.getBet();
+           
            } while (isBetInvalid(bet));
         output.heading();
     
@@ -35,14 +37,19 @@ public class Blackjack {
        dCard=dealerHand.addCard(deck);
        pCardValue= deck.getCardValue(pCard);
        dCardValue= deck.getCardValue(dCard);
-       output.out(pCard);
+       pRank=(deck.getCardRank(pCard));
+       pSuit=(deck.getCardSuit(pCard));
+       dRank=(deck.getCardRank(dCard));
+       dSuit=(deck.getCardSuit(dCard));
+       output.outStr(pRank, pSuit);
+       
        if ( k==1) 
             { output.str("                     ?"); // Hide dealer's second card
             output.nextln(); 
             } 
             else 
             { output.str("                "); 
-            output.out(dCard); 
+            output.outStr(dRank, dSuit); 
             output.nextln();
             }
         playerHand.addCardSum(pCardValue);
@@ -52,20 +59,22 @@ public class Blackjack {
     output.nextln();
     output.str("Sum:");
     output.numOut(playerHand.getCardSum()); 
-    if (dealerHand.getCardSum() == 21) { isChoicehit='n'; }
+    if (dealerHand.getCardSum() == 21) { isChoiceHit='n'; }
     output.nextln();
     output.nextln();
     
-    while ((isChoicehit=='y') & (playerHand.getCardSum()<21)) {
+    while ((isChoiceHit=='y') & (playerHand.getCardSum()<21)) {
         output.hitChoice();
-        isChoicehit= input.getChoice();
-        if (isChoicehit=='y') {
+        isChoiceHit= input.getChoice();
+        if (isChoiceHit=='y') {
             pCard=playerHand.addCard(deck); 
+            pRank=(deck.getCardRank(pCard));
+            pSuit=(deck.getCardSuit(pCard));
             pCardValue= deck.getCardValue(pCard);  
             output.nextln();
             output.str("You drew:");
             output.nextln();
-            output.out(pCard);
+            output.outStr(pRank, pSuit);
             output.nextln();
             output.nextln();
             output.str("Sum:");
@@ -73,12 +82,13 @@ public class Blackjack {
             output.nextln();
             output.nextln();
         }
+    
     }
     
     output.str("                             Dealer's hidden Card was:");
     output.nextln();
     output.str("                             ");
-    output.out(dCard); 
+    output.outStr(dRank, dSuit);
     output.nextln(); 
     output.nextln(); 
     output.str("                             Sum:");
@@ -86,12 +96,14 @@ public class Blackjack {
     output.nextln(); 
     while ((dealerHand.getCardSum()<17) & (playerHand.getCardSum()<21)) {
           dCard = dealerHand.addCard(deck);
+          dRank=(deck.getCardRank(dCard));
+          dSuit=(deck.getCardSuit(dCard));
           dCardValue= deck.getCardValue(dCard);
           output.nextln();
           output.str("                             Dealer drew:");
           output.nextln();
           output.str("                             ");
-          output.out(dCard);
+          output.outStr(dRank, dSuit);;
           output.nextln();
           output.nextln();
           output.str("                             Sum:");
@@ -130,6 +142,7 @@ public class Blackjack {
     if (playerHand.getCardSum()==dealerHand.getCardSum()) {
         output.str("It was a Push! You get back your bet!");
         output.nextln();
+        
     } 
     
     if ((playerHand.getCardSum()<21) & (playerHand.getCardSum()> dealerHand.getCardSum())) {
@@ -143,15 +156,19 @@ public class Blackjack {
        output.nextln();
        balance = balance + bet; 
     }
+    output.showBalance(balance);
     
     if (balance == 0) {
         output.nextln();
-        output.str("You're out of cash! ");
+        output.str("You're out of cash! Thanks for Playing! ");
     } 
     
-    output.playChoice();
-    isChoicePlay= input.getChoice();
-    output.nextln();
+    if (balance !=0) {
+        output.playChoice();
+        isChoicePlay= input.getChoice();
+        output.nextln();
+    }
+   
    } 
     
   }   
@@ -161,11 +178,10 @@ public class Blackjack {
       return true;
       }
     
-     else {return false;}  
+     else return false;  
   }
 
 }
     
- 
- 
+  
  
