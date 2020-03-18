@@ -1,6 +1,6 @@
 
 package blackjackinjava;
-public class Blackjack {
+public class TheBlackjack {
   private static int pCardValue,dCardValue; 
   private static Object pCard,dCard;
   private static String pRank, pSuit;
