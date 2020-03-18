@@ -1,14 +1,8 @@
 package blackjackinjava;
-import java.util.*; 
 
 class Hand {
     private int aceCount = 0;
     private int cardSum = 0;
-         
-    public Hand() {
-        this.aceCount = aceCount;
-        this.cardSum = cardSum;
-    }
           
     public Object addCard(Deck d) {
         return d.dealCard();
